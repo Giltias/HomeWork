@@ -102,7 +102,7 @@ foreach (array_keys($cars) as $car_key) {
 
 /*================ ЗАДАНИЕ #8 ==========================*/
 echo "************ ЗАДАНИЕ #8 **************" . PHP_EOL;
-$str = "А роза упала на лапу Азора";
+$str = "1 2 3 4 5 6 7 8 9";
 echo $str . PHP_EOL;
 $arrFromStr = explode(" ", $str);
 //echo implode(" ", array_reverse($arrFromStr)); //вариант проще, но не по заданию
@@ -110,7 +110,7 @@ $arrFromStr = explode(" ", $str);
 print_r($arrFromStr);
 $cnt = count($arrFromStr);
 $i = 0;
-while ($cnt > 0 && $cnt !== $i) {
+while ($cnt > 0 && $cnt > $i) {
     $cnt--;
     $tmp = $arrFromStr[$cnt];
     $arrFromStr[$cnt] = $arrFromStr[$i];
