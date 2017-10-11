@@ -110,10 +110,12 @@ $arrFromStr = explode(" ", $str);
 print_r($arrFromStr);
 $cnt = count($arrFromStr);
 $i = 0;
-while ($cnt > 0) {
+while ($cnt > 0 && $cnt !== $i) {
     $cnt--;
-    $tmp[$i] = $arrFromStr[$cnt];
+    $tmp = $arrFromStr[$cnt];
+    $arrFromStr[$cnt] = $arrFromStr[$i];
+    $arrFromStr[$i] = $tmp;
     $i++;
 }
-$arrFromStr = $tmp;
+//$arrFromStr = $tmp;
 echo implode('_', $arrFromStr);
