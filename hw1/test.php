@@ -35,7 +35,8 @@ echo "Измененное значение константы: " . FAVORITE_GRO
 
 /*================ ЗАДАНИЕ #4 ==========================*/
 echo "************ ЗАДАНИЕ #4 **************" . PHP_EOL;
-$age = rand(1, 150);
+$age = rand(-5, 150);
+//$age = -5; //для проверки неизвестного дня
 switch ($age % 10) {
     case 1: $age_text = 'год';
             break;
@@ -56,4 +57,63 @@ if ($age >= 18 && $age <= 65) {
 } else {
     echo "Неизвестный возраст";
 }
-echo PHP_EOL;
+echo PHP_EOL . PHP_EOL;
+
+/*================ ЗАДАНИЕ #5 ==========================*/
+echo "************ ЗАДАНИЕ #5 **************" . PHP_EOL;
+$day = rand(1, 10);
+echo "{$day} - ";
+switch ($day) {
+    case 1:case 2:case 3:case 4:case 5: echo "это рабочий день"; break;
+    case 6:case 7: echo "это выходной день"; break;
+    default: echo "неизвестный день"; break;
+}
+echo PHP_EOL . PHP_EOL;
+
+/*================ ЗАДАНИЕ #6 ==========================*/
+echo "************ ЗАДАНИЕ #6 **************" . PHP_EOL;
+$bmw = array(
+    "model" => "X5",
+    "speed" => 120,
+    "doors" => 5,
+    "year"  => 2015
+);
+$toyota = array(
+    "model" => "Camry",
+    "speed" => 130,
+    "doors" => 4,
+    "year"  => 2016
+);
+$opel = array(
+    "model" => "Corsa",
+    "speed" => 90,
+    "doors" => 3,
+    "year"  => 2009
+);
+$cars = array(
+    "bmw" => $bmw,
+    "toyota" => $toyota,
+    "opel" => $opel
+);
+foreach (array_keys($cars) as $car_key) {
+    echo "CAR " . $car_key . PHP_EOL;
+    echo implode(" ", $cars[$car_key]) . PHP_EOL . PHP_EOL;
+}
+
+/*================ ЗАДАНИЕ #8 ==========================*/
+echo "************ ЗАДАНИЕ #8 **************" . PHP_EOL;
+$str = "А роза упала на лапу Азора";
+echo $str . PHP_EOL;
+$arrFromStr = explode(" ", $str);
+//echo implode(" ", array_reverse($arrFromStr)); //вариант проще, но не по заданию
+//echo implode(" ", array_reverse(preg_split('//u', $str))); //еще вариант не по заданию
+print_r($arrFromStr);
+$cnt = count($arrFromStr);
+$i = 0;
+while ($cnt > 0) {
+    $cnt--;
+    $tmp[$i] = $arrFromStr[$cnt];
+    $i++;
+}
+$arrFromStr = $tmp;
+echo implode('_', $arrFromStr);
