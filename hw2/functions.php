@@ -84,7 +84,6 @@ function task3($action, ...$numbers) {
 /*================ КОНЕЦ ЗАДАНИЯ #3 ==========================*/
 
 /*================ ЗАДАНИЕ #4 ==========================*/
-
 function task4($num1, $num2) {
     if (!is_int($num1) || !is_int($num2)) {
         return "Введен некорректный тип данных! Введите целые числа!";
@@ -106,16 +105,129 @@ function task4($num1, $num2) {
 /*================ КОНЕЦ ЗАДАНИЯ #4 ==========================*/
 
 /*================ ЗАДАНИЕ #5 ==========================*/
-
 function task5_1($string) {
     $lStr = mb_strtolower(str_replace(" ", "", $string), 'utf-8');
-    $reverse = join('', array_reverse(preg_split('//u', $lStr)));
+    $reverse = implode('', array_reverse(preg_split('//u', $lStr)));
     if ($lStr === $reverse) {
         return true;
     }
     return false;
 }
-
 /*================ КОНЕЦ ЗАДАНИЯ #5 ==========================*/
 
+/*================ ЗАДАНИЕ #6 ==========================*/
+function task6() {
+    return 'Текущая дата/время: ' . date('d.m.Y H:i') . PHP_EOL . '<br>' .
+           'Unix-time время соответствующее 24.02.2016 00:00:00 - ' . strtotime('24 february 2016 00:00:00');
+}
+/*================ КОНЕЦ ЗАДАНИЯ #6 ==========================*/
 
+/*================ ЗАДАНИЕ #7 ==========================*/
+function task7() {
+    $strKarl = 'Карл у Клары украл Кораллы';
+    $strSoda = 'Две бутылки лимонада';
+    return $strKarl . ' без заглавных К - ' . str_replace('К', '', $strKarl) . PHP_EOL . '<br>' .
+           $strSoda . ' меняем Две на Три - ' . str_replace('Две', 'Три', $strSoda) . PHP_EOL . '<br>' .
+           str_replace('Кораллы', mb_strtolower(str_replace('Две', 'Три', $strSoda)), $strKarl);
+}
+/*================ КОНЕЦ ЗАДАНИЯ #7 ==========================*/
+
+/*================ ЗАДАНИЕ #8 ==========================*/
+/**
+ * Функция формирует строку с данными по пакету
+ * Может выдать пакет формата NX вместо RX
+ *
+ * @return string
+ */
+function task8_1() {
+    $control = random_int(0, 3);
+    $packageName = 'RX';
+    $packageProperty = ['packets', 'errors', 'dropped', 'overruns', 'frame'];
+    if ($control === 0) {
+        $packageName = 'NX';
+    }
+    shuffle($packageProperty);
+    $result = '';
+    foreach ($packageProperty as $property) {
+        $result .= ' ' . task8_2($property);
+    }
+    return $packageName . $result;
+}
+
+/**
+ * Используется для генерации чисел для свойств пакета
+ *
+ * @param $propertyName
+ *
+ * @return string
+ */
+function task8_2($propertyName) {
+    $int = ($propertyName === 'packets') ? random_int(10, 5000) : random_int(0, 3);
+    $int = ($propertyName === 'packets' && ($int % 2 === 0)) ? ')' : $int;
+    return $propertyName . ':' . $int;
+}
+
+function task8($str) {
+    echo $str  . PHP_EOL . '<br>';
+    $packageProperty = array(
+        'packets'  => null,
+        'errors'   => null,
+        'dropped'  => null,
+        'overruns' => null,
+        'frame'    => null);
+    if (empty($str)) {
+        return 'Пакет не доставлен';
+    }
+    if (strpos($str, "RX") === false) {
+        return 'Доставлен пакет формата отличного от RX';
+    }
+    if (preg_match('/\:\)/', $str)) {
+        require_once 'smile.php';
+        return '<pre>' . $smile . '</pre>';
+    }
+
+    foreach (array_keys($packageProperty) as $property) {
+        if (preg_match('/' . $property . ':(\d)*/', $str, $arr)) {
+            if (preg_match('/(\d)+/', $arr[0], $arrDigit)) {
+                $packageProperty[$property] = $arrDigit[0];
+            }
+        }
+    }
+
+    if ($packageProperty['packets'] > 1000) {
+        return 'Сеть есть!';
+    }
+
+    return 'Пакетов менее 1000: ' . $packageProperty['packets'];
+}
+/*================ КОНЕЦ ЗАДАНИЯ #8 ==========================*/
+
+/*================ ЗАДАНИЕ #9 ==========================*/
+function task9($fileName) {
+    if (!file_exists('test.txt')) {
+        exec('touch test.txt');
+        file_put_contents('test.txt', 'Hello, World!');
+    }
+    if (!file_exists($fileName)) {
+        echo "Файла с именем $fileName не существует";
+        return false;
+    }
+    echo file_get_contents($fileName);
+    return true;
+}
+/*================ КОНЕЦ ЗАДАНИЯ #9 ==========================*/
+
+/*================ ЗАДАНИЕ #10 ==========================*/
+function task10() {
+    try {
+        $fp = fopen('anothertest.txt', 'wb+');
+        fwrite($fp, 'Hello again!');
+        fclose($fp);
+        echo file_get_contents('anothertest.txt');
+    } catch (Exception $exception) {
+        echo $exception->getMessage();
+        return false;
+    }
+    return true;
+}
+/*================ КОНЕЦ ЗАДАНИЯ #10 ==========================*/
