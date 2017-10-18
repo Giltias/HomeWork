@@ -141,6 +141,24 @@ function printDiffs($arr, $str1, $str2) {
     }
 }
 
+function array_diff_recursive($arr1, $arr2) {
+    $diff = [];
+    foreach ($arr1 as $key => $value) {
+        if (is_array($value)) {
+            $tmp = array_diff_recursive($arr1[$key], $arr2[$key]);
+            if (!empty($tmp)) {
+                $diff[$key] = $tmp;
+            }
+        } else {
+            if ($arr1[$key] !== $arr2[$key]) {
+                $diff[$key] = $arr2[$key];
+            }
+        }
+    }
+
+    return $diff;
+}
+
 function test2() {
     $arr = createRandomArr();
     $jsonArr = json_encode($arr);
@@ -159,10 +177,11 @@ function test2() {
     $jsonFromOutput2 = file_get_contents('output2.json');
     $arrFromOutput   = json_decode($jsonFromOutput);
     $arrFromOutput2  = json_decode($jsonFromOutput2);
-    $arrDiff = array_diff($arrFromOutput, $arrFromOutput2);
+    $arrDiff = array_diff_recursive($arrFromOutput, $arrFromOutput2);
     printDiffs($arrDiff, $jsonFromOutput, $jsonFromOutput2);
 }
 /*================ КОНЕЦ ЗАДАНИЯ #2 ==========================*/
+
 
 /*================ ЗАДАНИЕ #3 ==========================*/
 function test3() {
