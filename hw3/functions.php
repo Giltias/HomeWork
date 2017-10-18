@@ -145,13 +145,17 @@ function array_diff_recursive($arr1, $arr2) {
     $diff = [];
     foreach ($arr1 as $key => $value) {
         if (is_array($value)) {
-            $tmp = array_diff_recursive($arr1[$key], $arr2[$key]);
+            $tmp = array_diff_recursive($arr1[$key], is_array($arr2[$key]) ? $arr2[$key] : [$arr2[$key]]);
             if (!empty($tmp)) {
                 $diff[$key] = $tmp;
             }
         } else {
-            if ($arr1[$key] !== $arr2[$key]) {
-                $diff[$key] = $arr2[$key];
+            if ($key > count($arr2)-1) {
+                $diff[$key] = $value;
+            } else {
+                if ($arr1[$key] !== $arr2[$key]) {
+                    $diff[$key] = $arr2[$key];
+                }
             }
         }
     }
@@ -181,7 +185,6 @@ function test2() {
     printDiffs($arrDiff, $jsonFromOutput, $jsonFromOutput2);
 }
 /*================ КОНЕЦ ЗАДАНИЯ #2 ==========================*/
-
 
 /*================ ЗАДАНИЕ #3 ==========================*/
 function test3() {
