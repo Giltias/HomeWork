@@ -1,5 +1,5 @@
 <?php
-require_once "../classes/DBConfig.php";
+require_once __DIR__ . "/../classes/DBConfig.php";
 
 use Burgers\App\Classes\DBConfig;
 

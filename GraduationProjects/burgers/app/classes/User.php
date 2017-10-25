@@ -7,20 +7,19 @@ require_once "DB.php";
 use Burgers\App\Classes\DB;
 
 /**
+ * Класс пользователей
+ *
  * Class User
  * @package Burgers\App\Classes
  */
 class User
 {
     /**
+     * Соединение с базой
+     *
      * @var \Burgers\App\Classes\DB
      */
     private $db;
-
-    /**
-     * @var string
-     */
-    private $sql;
 
     /**
      * User constructor.
@@ -31,34 +30,46 @@ class User
     }
 
     /**
-     *
+     * Получение списка пользователей
      */
     public function getUsers()
     {
-        $this->sql = "SELECT * FROM users";
-        $stmt = $this->db->prepare($this->sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM users";
+        $result = $this->db->run($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
     /**
+     * Получение ИД пользователя по email
+     *
      * @param $email
      * @return array
      */
     public function getUserByEmail($email)
     {
-        $this->sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->db->prepare($this->sql);
+        $sql = "SELECT id FROM users WHERE email = :email";
+        $args = [['email', $email]];
+        $result = $this->db->run($sql, $args)->fetch(\PDO::FETCH_ASSOC);
+        return $result['id'];
+    }
 
-        $stmt->bindParam(':email', $email);
-
-        $stmt->execute();
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    /**
+     * Получение данных о пользователе по ID
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getUserById($id)
+    {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $args = [['id', $id]];
+        $result = $this->db->run($sql, $args)->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
     /**
+     * Определение существования пользователя
+     *
      * @param $email
      * @return bool
      */
@@ -68,44 +79,31 @@ class User
     }
 
     /**
+     * Добавление нового пользователя
+     *
      * @param $email
      * @param $phone
      * @return bool
      */
-    public function addUser($email, $phone)
+    public function addUser($data = [])
     {
-        $this->sql = 'INSERT INTO users(email, phone) VALUES (:email, :phone)';
-        $stmt = $this->db->prepare($this->sql);
-
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':phone', $phone);
-
-        try {
-            $stmt->execute();
-        } catch (\PDOException $e) {
-            echo 'Ошибка при добавлении пользователя: ' . $e->getMessage();
-            return false;
-        }
+        $sql = 'INSERT INTO users(email, phone, name) VALUES (:email, :phone, :name)';
+        $args = [['email', $data['email']],['phone', $data['phone']], ['name', $data['name']]];
+        $this->db->run($sql, $args, 'Ошибка при добавлении пользователя: ');
         return true;
     }
 
     /**
+     * Удаление пользователя
+     *
      * @param $userId
      * @return bool
      */
     public function deleteUser($userId)
     {
-        $this->sql = 'DELETE from users WHERE id = :userId';
-        $stmt = $this->db->prepare($this->sql);
-
-        $stmt->bindParam(':userId', $userId);
-
-        try {
-            $stmt->execute();
-        } catch (\PDOException $e) {
-            echo 'Ошибка при попытке удалить пользователя: ' . $e->getMessage();
-            return false;
-        }
+        $sql = 'DELETE from users WHERE id = :userId';
+        $args = [['userId', $userId]];
+        $this->db->run($sql, $args, 'Ошибка при попытке удалить пользователя: ');
         return true;
     }
 }

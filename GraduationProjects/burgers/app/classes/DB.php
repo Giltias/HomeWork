@@ -3,27 +3,83 @@
 namespace Burgers\App\Classes;
 
 require_once "DBConfig.php";
-require_once "../helpers/parameters.php";
+require_once __DIR__ . "/../helpers/parameters.php";
 
 use Burgers\App\Classes\DBConfig;
 
 
+/**
+ * Класс-обвертка над PDO
+ *
+ * Class DB
+ * @package Burgers\App\Classes
+ */
 class DB
 {
     /**
      * @var \PDO
      */
-    private static $dbn;
+    private $dbn;
 
+    /**
+     * @var
+     */
+    private static $instance;
+
+    /**
+     * DB constructor.
+     */
+    public function __construct()
+    {
+        $this->dbn = new \PDO(DBConfig::setDSN(), DBConfig::$user, DBConfig::$password);
+        $this->dbn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    }
+
+    /**
+     * Возвращает объект PDO
+     *
+     * @return DB
+     */
     public static function connect()
     {
-        if (!isset(self::$dbn)) {
-            try {
-                self::$dbn = new \PDO(DBConfig::setDSN(), DBConfig::$user, DBConfig::$password);
-            } catch (\PDOException $exception) {
-                echo 'Подключение не удалось: ' . $exception->getMessage();
+        if (empty(self::$instance)) {
+           self::$instance = new self;
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Обвертка над подготовкой и запуском запросов
+     *
+     * @param $sql
+     * @param array $args
+     * @param string $errText
+     * @return bool|\PDOStatement
+     */
+    public function run($sql, $args = [], $errText = '')
+    {
+        $stmt = $this->dbn->prepare($sql);
+        if (!empty($args)) {
+            foreach ($args as $arg) {
+                $stmt->bindParam(':' . $arg[0], $arg[1]);
             }
         }
-        return self::$dbn;
+        try {
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            echo $errText . $e->getMessage();
+            return false;
+        }
+        return $stmt;
+    }
+
+    /**
+     *  Определение ID последнего INSERT
+     *
+     * @return string
+     */
+    public function lastInsId()
+    {
+        return $this->dbn->lastInsertId();
     }
 }
