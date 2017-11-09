@@ -1,0 +1,13 @@
+{
+    "name": "giltias/hw5",
+    "authors": [
+        {
+            "name": "Giltias",
+            "email": "dolvic89@yandex.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"Models\\": "models/"}
+    }
+}
