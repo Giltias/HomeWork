@@ -1,0 +1,28 @@
+{% extends "base.admin.html.twig" %}
+
+{% block content %}
+    <h1>Список всех пользователей</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Имя пользователя</th>
+            <th>Телефон</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href='detail.php?user={{ user.id }}'>{{ user.email }}</a></td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.phone }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="../source/changeImage.php" method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+        <input type="file" name="photo" value="Выбрать изображение">
+        <input type="submit" value="Изменить">
+    </form>
+{% endblock %}

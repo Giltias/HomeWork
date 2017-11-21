@@ -1,0 +1,31 @@
+{% extends "base.admin.html.twig" %}
+
+{% block content %}
+    <h1>Список всех заказов пользователя <strong><?php echo $user['name } ?></strong></h1>
+    <table>
+        <thead>
+        <tr>
+            <th>№ заказа</th>
+            <th>Улица</th>
+            <th>Дом</th>
+            <th>Корпус</th>
+            <th>Квартира</th>
+            <th>Этаж</th>
+            <th>Комментарий</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.street }}</td>
+                <td>{{ order.house }}</td>
+                <td>{{ order.fraction }}</td>
+                <td>{{ order.room }}</td>
+                <td>{{ order.floor }}</td>
+                <td>{{ order.comment }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
