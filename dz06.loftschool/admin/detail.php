@@ -1,6 +1,6 @@
 <?php
-require_once '../../vendor/autoload.php';
-require_once '../config/parameters.php';
+require_once '../vendor/autoload.php';
+require_once '../app/config/parameters.php';
 
 use DZ06\App\Classes\Order;
 use DZ06\App\Classes\User;
