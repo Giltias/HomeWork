@@ -15,6 +15,7 @@
             <th>Квартира</th>
             <th>Этаж</th>
             <th>Комментарий</th>
+            <th>Фото (кому будет произведена доставка)</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
                 <td>{{ order.room }}</td>
                 <td>{{ order.floor }}</td>
                 <td>{{ order.comment }}</td>
+                <td><img src="{{ order.image }}" width="50" alt=""></td>
                 <td>
                     <a href="/order/edit/{{ order.id }}">Edit</a>
                 </td>
