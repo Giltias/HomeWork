@@ -1,0 +1,17 @@
+{% extends "base.admin.html.twig" %}
+
+{% block content %}
+    <br>
+    <a href="/admin">К списку пользователей</a>
+    <br>
+    <br>
+    <form action="/order/edit/success/{{ order }}" method="post">
+        <label for="street">Улица:</label><input type="text" name="street" id="street" value="{{ street }}"><br><br>
+        <label for="house">Дом:</label><input type="text" name="house" id="house" value="{{ house }}"><br><br>
+        <label for="fraction">Корпус:</label><input type="text" name="fraction" id="fraction" value="{{ fraction }}"><br><br>
+        <label for="room">Квартира:</label><input type="text" name="room" id="room" value="{{ room }}"><br><br>
+        <label for="floor">Этаж:</label><input type="text" name="floor" id="floor" value="{{ floor }}"><br><br>
+        <label for="comment">Комментарий:</label><input type="text" name="comment" id="comment" value="{{ comment }}"><br><br>
+        <input type="submit" value="Изменить">
+    </form>
+{% endblock %}

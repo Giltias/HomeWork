@@ -7,3 +7,7 @@ hw3/output2.json
 dz06.loftschool/composer.lock
 dz06.loftschool/app/config/parameters.php
 dz06.loftschool/vendor/
+hw7/composer.lock
+hw7/app/config/parameters.php
+hw7/vendor/
+hw7/web/uploads/

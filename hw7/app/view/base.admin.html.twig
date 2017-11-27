@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="../../web/css/stylesheet.css">
+        <title>Админка</title>
+    </head>
+    <body>
+        <a href="/">На сайт</a><br>
+        <button id="migrateBurger">Миграция для Бургерной</button>
+        <button id="migrateGoods">Миграция для Товаров и Категорий</button>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <script src="../../web/js/vendors.min.js"></script>
+        <script src="../../web/js/admin.js"></script>
+    </body>
+</html>

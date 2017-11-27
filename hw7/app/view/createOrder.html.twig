@@ -1,0 +1,21 @@
+{% extends "base.admin.html.twig" %}
+
+{% block content %}
+    <br>
+    <a href="/admin">К списку пользователей</a>
+    <br>
+    <br>
+    <h1>Создать заказ на пользователя с email: {{ email }}</h1>
+    <br>
+    <br>
+    <form action="/order/create/success" method="post">
+        <input type="hidden" name="user" value="{{ id }}">
+        <label for="street">Улица:</label><input type="text" name="street" id="street" required><br><br>
+        <label for="house">Дом:</label><input type="text" name="house" id="house" ><br><br>
+        <label for="fraction">Корпус:</label><input type="text" name="fraction" id="fraction"><br><br>
+        <label for="room">Квартира:</label><input type="text" name="room" id="room" ><br><br>
+        <label for="floor">Этаж:</label><input type="text" name="floor" id="floor" ><br><br>
+        <label for="comment">Комментарий:</label><input type="text" name="comment" id="comment"><br><br>
+        <input type="submit" value="Создать">
+    </form>
+{% endblock %}

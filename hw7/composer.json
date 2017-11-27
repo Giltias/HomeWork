@@ -1,0 +1,27 @@
+{
+    "name": "giltias/dz06.loftschool",
+    "authors": [
+        {
+            "name": "Giltias",
+            "email": "dolvic89@yandex.ru"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.0",
+        "twig/twig": "^2.4",
+        "google/recaptcha": "~1.1",
+        "intervention/image": "^2.4",
+        "nikic/fast-route": "^1.2",
+        "illuminate/database": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "HW7\\App\\Classes\\": "app/classes",
+            "HW7\\App\\Controller\\": "app/Controller",
+            "HW7\\App\\Engine\\": "app/Engine",
+            "HW7\\App\\Model\\": "app/Model",
+            "HW7\\App\\Service\\": "app/Service",
+            "HW7\\App\\Migrations\\": "app/Migrations"
+        }
+    }
+}
