@@ -31,22 +31,22 @@ class MainController
                 $table->timestamps();
             });
 
-            $this->capsule->table('users')->insert(
-                [
-                    'login' => 'admin',
-                    'password' => 'admin',
-                    'role' => '1'
-                ]
-            );
-
             $this->capsule::schema()->create('photos', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('user_id')->unsigned();
-                $table->foreign('user_id')->references('id')->on('user');
+                $table->foreign('user_id')->references('id')->on('users');
                 $table->string('path');
                 $table->boolean('current')->default(0);
                 $table->timestamps();
             });
+
+            $this->capsule->table('users')->insert(
+                [
+                    'login' => 'admin',
+                    'password' => password_hash('admin', PASSWORD_BCRYPT),
+                    'role' => '1'
+                ]
+            );
         }
     }
 }

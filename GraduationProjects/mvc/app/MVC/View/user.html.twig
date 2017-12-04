@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="mt-5 col-md-12">
+                <div class="card">
+                    <h4 class="card-header bg-primary text-white">
+                       Пользователь
+                    </h4>
+                    <div class="card-body">
+                        <div class="container-fluid pr-0 pl-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="" alt="Фото" width="480" height="480">
+                                </div>
+                                <div class="col-md-9">
+                                    <form action="">
+
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <input type="text" class="form-control"
+                                                           name="lastName" placeholder="Фамилия">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control"
+                                                           name="firstName" placeholder="Имя">
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control"
+                                                           name="midName" placeholder="Отчество">
+                                                </div>
+                                            </div>
+                                        <div class="form-row mt-3">
+                                            <div class="col">
+                                                <input type="date" class="form-control"
+                                                       name="birthDate">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

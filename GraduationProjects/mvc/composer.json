@@ -1,0 +1,21 @@
+{
+    "name": "vdolinger/mvc",
+    "authors": [
+        {
+            "name": "Giltias",
+            "email": "dolvic89@yandex.ru"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.4",
+        "illuminate/database": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "MVC\\App\\Engine\\": "app/Engine",
+            "MVC\\MVC\\": "app/MVC",
+            "MVC\\MVC\\Controller\\": "app/MVC/Controller",
+            "MVC\\MVC\\Model\\": "app/MVC/Model"
+        }
+    }
+}
