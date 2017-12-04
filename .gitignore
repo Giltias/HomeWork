@@ -11,3 +11,5 @@ hw7/composer.lock
 hw7/app/config/parameters.php
 hw7/vendor/
 hw7/web/uploads/
+GraduationProjects/mvc/composer.lock
+GraduationProjects/mvc/vendor

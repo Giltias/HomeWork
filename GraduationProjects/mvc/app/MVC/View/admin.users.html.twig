@@ -1,0 +1,50 @@
+{% extends "admin.html.twig" %}
+
+{% block detail %}
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="mt-5 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-1">
+                            <a href="/admin/user/add/request" class="btn btn-danger float-right"><i class="fa fa-plus"></i> Добавить пользователя</a>
+                            <a href="/users/desc" class="btn btn-danger float-right mr-2"><i class="fa fa-angle-down"></i> По убыванию</a>
+                            <a href="/users/asc" class="btn btn-danger float-right mr-2"><i class="fa fa-angle-up"></i> По возрастанию</a>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <thead class="bg-danger text-white text-center">
+                            <tr>
+                                <td>Id</td>
+                                <td>Логин</td>
+                                <td>ФИО</td>
+                                <td>Возраст</td>
+                                <td>Статус</td>
+                                <td>Описание</td>
+                                <td>Роль</td>
+                                <td>Действия</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                            <td class="text-center">{{ user.id }}</td>
+                                            <td>{{ user.login }}</td>
+                                            <td>{{ user.FIO }}</td>
+                                            <td>{{ user.Age }}</td>
+                                            <td>{{ user.Status }}</td>
+                                            <td>{{ user.description }}</td>
+                                            <td>{{ user.RoleName }}</td>
+                                            <td>
+                                                    <a href="/admin/user/view/{{ user.id }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                            </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

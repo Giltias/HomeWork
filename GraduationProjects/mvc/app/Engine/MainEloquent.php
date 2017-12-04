@@ -6,8 +6,15 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use MVC\MVC\ConfigStore;
 
 
+/**
+ * Class MainEloquent
+ * @package MVC\App\Engine
+ */
 class MainEloquent
 {
+    /**
+     * @return Capsule
+     */
     public static function run()
     {
         $capsule = new Capsule();

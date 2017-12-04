@@ -4,8 +4,17 @@ namespace MVC\MVC\Controller;
 
 use MVC\App\Engine\MainController;
 
+/**
+ * Class Page404
+ * @package MVC\MVC\Controller
+ */
 class Page404 extends MainController
 {
+    /**
+     * @param $errorCode
+     * @param null $text
+     * @return array
+     */
     private function parseError($errorCode, $text = null)
     {
         $error = [];
@@ -24,6 +33,10 @@ class Page404 extends MainController
         return $error;
     }
 
+    /**
+     * @param $errorCode
+     * @param null $method
+     */
     public function index($errorCode, $method = null)
     {
             list($httpCode, $errorText) = $this->parseError($errorCode, $method);

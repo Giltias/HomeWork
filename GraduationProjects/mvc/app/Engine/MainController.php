@@ -4,9 +4,19 @@ namespace MVC\App\Engine;
 
 use Illuminate\Database\Schema\Blueprint;
 
+/**
+ * Class MainController
+ * @package MVC\App\Engine
+ */
 class MainController
 {
+    /**
+     * @var MainView
+     */
     protected $view;
+    /**
+     * @var \Illuminate\Database\Capsule\Manager
+     */
     protected $capsule;
 
     /**
@@ -16,7 +26,10 @@ class MainController
     {
         $this->view = new MainView();
         $this->capsule = MainEloquent::run();
-
+        /**
+         * If user table not exists in schema then do migration
+         * Then create user: admin
+         */
         if (!$this->capsule::schema()->hasTable('users')) {
             $this->capsule::schema()->create('users', function (Blueprint $table) {
                 $table->increments('id');
@@ -26,7 +39,8 @@ class MainController
                 $table->string('firstname')->nullable();
                 $table->string('midname')->nullable();
                 $table->string('birthdate')->nullable();
-                $table->integer('description')->nullable();
+                $table->string('description')->nullable();
+                $table->integer('passChanged')->default(0);
                 $table->integer('role')->default(0);
                 $table->timestamps();
             });

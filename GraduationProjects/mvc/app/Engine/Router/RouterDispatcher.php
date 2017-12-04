@@ -4,23 +4,46 @@ namespace MVC\App\Engine\Router;
 
 use MVC\MVC\ConfigStore;
 
+/**
+ * Class RouterDispatcher
+ * @package MVC\App\Engine\Router
+ */
 class RouterDispatcher
 {
+    /**
+     * @var Router
+     */
     private $router;
 
+    /**
+     * @var mixed
+     */
     private $controllerBasePath;
 
+    /**
+     * RouterDispatcher constructor.
+     */
     public function __construct()
     {
         $this->router = new Router();
         $this->controllerBasePath = ConfigStore::getItem('controllerBasePath');
     }
 
+    /**
+     * Get Router
+     *
+     * @return Router
+     */
     public function getRouter()
     {
         return $this->router;
     }
 
+    /**
+     * Dispatch Controller By URI
+     *
+     * @return mixed
+     */
     public function dispatch()
     {
         $uri = URIParser::getURI();
@@ -45,12 +68,27 @@ class RouterDispatcher
 
     }
 
+    /**
+     * Prepare controller before do dispatch
+     *
+     * @param $handler
+     * @param array $parameters
+     * @return mixed
+     */
     private function parseBeforeDoDispatch($handler, $parameters = [])
     {
         list($controllerName, $action) = explode(':', $handler);
         return $this->doDispatch($controllerName, $action, $parameters);
     }
 
+    /**
+     * Prepare controller with parameters before do dispatch
+     *
+     * @param $variableRoutes
+     * @param $method
+     * @param $uri
+     * @return array|null
+     */
     private function dispatchVariableRoute($variableRoutes, $method, $uri)
     {
         $cntURISegments = $this->countSegments($uri);
@@ -81,6 +119,13 @@ class RouterDispatcher
         return null;
     }
 
+    /**
+     * Check exists URI with method
+     *
+     * @param $variableRoutes
+     * @param $uri
+     * @return array|null
+     */
     private function dispatchMethodNotAllowedRoute($variableRoutes, $uri)
     {
         $cntURISegments = $this->countSegments($uri);
@@ -101,16 +146,37 @@ class RouterDispatcher
 
         return null;
     }
+
+    /**
+     * Helper. Count segments in route or URI
+     *
+     * @param $path
+     * @return int
+     */
     private function countSegments($path)
     {
         return substr_count($path, '/');
     }
 
+    /**
+     * Do dispatch action in controller
+     *
+     * @param $controllerName
+     * @param $action
+     * @param array $parameters
+     * @return mixed
+     */
     public function doDispatch($controllerName, $action, $parameters = [])
     {
         return call_user_func_array([$this->createController($controllerName), $action], $data = $parameters);
     }
 
+    /**
+     * Create object of finding controller
+     *
+     * @param $controllerName
+     * @return mixed
+     */
     private function createController($controllerName)
     {
         $controller = $this->controllerBasePath . $controllerName;

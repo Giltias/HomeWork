@@ -3,15 +3,25 @@
 namespace MVC\App\Engine\Router;
 
 
+/**
+ * Class RouteParser
+ * @package MVC\App\Engine\Router
+ */
 class RouteParser
 {
-    const REGEX = '\{\s*([a-zA-Z][a-zA-Z0-9]*)\s*(?::\s*([a-zA-Z][a-zA-Z0-9]*))?\}';
-    const DEFAULT_DISPATCH_REGEX = '[^/]+';
 
+    const REGEX = '\{\s*([a-zA-Z][a-zA-Z0-9]*)\s*(?::\s*([a-zA-Z][a-zA-Z0-9]*))?\}';
+    const DEFAULT_DISPATCH_REGEX = '[0-9a-zA-Z_ ]+';
     const REGEX_TYPES = [
             'int' => '[1-9][0-9]*'
         ];
 
+    /**
+     * Parse route
+     *
+     * @param $route
+     * @return array
+     */
     public function parser($route)
     {
         if (!preg_match_all(
