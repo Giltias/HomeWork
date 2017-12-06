@@ -17,7 +17,7 @@ class HomeController extends MainController
      */
     public function index()
     {
-        if (!empty($_SESSION['user'] && isset($_SESSION['user']))) {
+        if (array_key_exists('user', $_SESSION) && null !== $_SESSION['user']) {
             $user = User::find($_SESSION['user']);
             if ($user->role !== 1) {
                 $avatar = Photo::where('user_id', $_SESSION['user'])->where('current', 1)->first();
@@ -37,9 +37,11 @@ class HomeController extends MainController
                 }
             }
         } else {
-            $this->view->render('auth.html.twig', ['error' => $_SESSION['error']]);
-            if ($_SESSION['error'] !== null) {
+            if (array_key_exists('error', $_SESSION)) {
+                $this->view->render('auth.html.twig', ['error' => $_SESSION['error']]);
                 unset($_SESSION['error']);
+            } else {
+                $this->view->render('auth.html.twig');
             }
         }
     }
@@ -115,9 +117,11 @@ class HomeController extends MainController
      */
     public function formRegister()
     {
-        $this->view->render('register.html.twig', ['error' => $_SESSION['error']]);
-        if ($_SESSION['error'] !== null) {
+        if (array_key_exists('error', $_SESSION)) {
+            $this->view->render('register.html.twig', ['error' => $_SESSION['error']]);
             unset($_SESSION['error']);
+        } else {
+            $this->view->render('register.html.twig');
         }
     }
 
@@ -281,6 +285,7 @@ class HomeController extends MainController
     {
         $userCheck = User::find($_SESSION['user']);
         if ($userCheck && $userCheck->role === 1) {
+
             $this->view->render('newPassword.html.twig', ['error' => $_SESSION['error']]);
             if ($_SESSION['error'] !== null) {
                 unset($_SESSION['error']);
@@ -297,9 +302,11 @@ class HomeController extends MainController
     {
         $userCheck = User::find($_SESSION['user']);
         if ($userCheck && $userCheck->role === 1) {
-            $this->view->render('admin.add.html.twig', ['error' => $_SESSION['error']]);
-            if ($_SESSION['error'] !== null) {
+            if (array_key_exists('error', $_SESSION)) {
+                $this->view->render('admin.add.html.twig', ['error' => $_SESSION['error']]);
                 unset($_SESSION['error']);
+            } else {
+                $this->view->render('admin.add.html.twig');
             }
         } else {
             header('Location: /');
