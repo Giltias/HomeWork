@@ -51,7 +51,7 @@ class RouterDispatcher
 
         list($staticRoutes, $variableRoutes) = $this->router->getRoutes();
 
-        if (null !== $handler = $staticRoutes[$method][$uri]['action']) {
+        if (!empty($staticRoutes[$method][$uri]['action']) && null !== $handler = $staticRoutes[$method][$uri]['action']) {
             return $this->parseBeforeDoDispatch($handler);
         }
 
