@@ -1,13 +1,13 @@
 <?php
 
-namespace MVC\App\Engine;
+namespace HW8\App\Engine;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
 /**
  * Class MainView
- * @package MVC\App\Engine
+ * @package HW8\App\Engine
  */
 class MainView
 {
