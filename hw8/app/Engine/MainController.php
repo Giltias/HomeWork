@@ -45,13 +45,15 @@ class MainController
                 $table->float('price');
                 $table->string('description');
                 $table->integer('discount')->default(0);
-                $table->string('photo');
+                $table->string('photo')->nullable;
                 $table->timestamps();
+                $table->softDeletes();
             });
 
             $this->capsule->table('categories')->insert(
                 [
-                    'name' => 'all googs',
+                    'name' => 'all goods',
+                    'subcategory_id' => 0
                 ]
             );
             $this->capsule->table('categories')->insert(
@@ -77,7 +79,7 @@ class MainController
             );
             $this->capsule->table('goods')->insert(
                 [
-                    'category_id' => 2,
+                    'category_id' => 3,
                     'name'        => 'Harry Potter',
                     'price'       => '19.99',
                     'description' => 'book about strange boy',

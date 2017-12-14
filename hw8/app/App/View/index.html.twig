@@ -4,21 +4,22 @@
 
 
 {% block content %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-        <a class="navbar-brand" href="#">Админка</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    {% include 'adminNavbar.html.twig' %}
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
+    <div class="container mt-3" id="container" style="display: none;">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-success float-right add-goods">+ Add Goods</button>
+            </div>
         </div>
-    </nav>
-    <div class="container mt-3" id="content"></div>
+        <div class="row">
+            <div class="col">
+                <div id="content"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'modalGoods.html.twig' %}
+    {% include 'modalGoodsAdd.html.twig' %}
 {% endblock %}
 
 {% block javascript %}

@@ -1,0 +1,45 @@
+    <div class="modal fade" id="editGoods"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGoodsLabel">Edit goods: <span id="editGoodsLabelGoods"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="editGoods">
+                        <input type="hidden" name="_method" value="edit">
+                        <input type="hidden" name="goods-id" id="goods-id" value="">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="goods-price" class="col-form-label">Price:</label>
+                                    <input type="text" class="form-control" name="goods-price" id="goods-price">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="goods-discount" class="col-form-label">Discount:</label>
+                                    <input type="text" class="form-control" name="goods-discount" id="goods-discount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="goods-photo" class="col-form-label">Photo:</label>
+                            <input type="text" class="form-control" name="goods-photo" id="goods-photo">
+                        </div>
+                        <div class="form-group">
+                            <label for="goods-description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" name="goods-description" id="goods-description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="goodsEditSave">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+

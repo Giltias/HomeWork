@@ -88,4 +88,43 @@ class Router
         $this->addRoute('POST', $route, $action);
         return true;
     }
+
+    /**
+     * Add new Route with method PUT
+     *
+     * @param $route
+     * @param $action
+     * @return bool
+     */
+    public function put($route, $action)
+    {
+        $this->addRoute('PUT', $route, $action);
+        return true;
+    }
+
+    /**
+     * Add new Route with method PATCH
+     *
+     * @param $route
+     * @param $action
+     * @return bool
+     */
+    public function patch($route, $action)
+    {
+        $this->addRoute('PATCH', $route, $action);
+        return true;
+    }
+
+    /**
+     * Add new Route with method DELETE
+     *
+     * @param $route
+     * @param $action
+     * @return bool
+     */
+    public function delete($route, $action)
+    {
+        $this->addRoute('DELETE', $route, $action);
+        return true;
+    }
 }

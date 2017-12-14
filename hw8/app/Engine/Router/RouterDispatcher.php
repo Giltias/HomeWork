@@ -64,7 +64,7 @@ class RouterDispatcher
             return $this->parseBeforeDoDispatch($result[0], $result[1]);
         }
 
-        return $this->doDispatch('Page404', 'index', [0]);
+        return null;//$this->doDispatch('Page404', 'index', [0]);
 
     }
 
