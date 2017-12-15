@@ -45,7 +45,7 @@ class MainController
                 $table->float('price');
                 $table->string('description');
                 $table->integer('discount')->default(0);
-                $table->string('photo')->nullable;
+                $table->string('photo')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });

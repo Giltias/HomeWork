@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form name="newGoods">
+                <form name="newGoods" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="create">
                     <div class="row">
                         <div class="col">
@@ -40,7 +40,9 @@
                     </div>
                     <div class="form-group">
                         <label for="add-goods-photo" class="col-form-label">Photo:</label>
-                        <input type="text" class="form-control" name="add-goods-photo" id="add-goods-photo">
+                        <label class="btn btn-outline-secondary col-12">
+                            Loading image<input type="file" class="form-control" name="add-goods-photo" id="add-goods-photo" hidden>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="add-goods-description" class="col-form-label">Description:</label>

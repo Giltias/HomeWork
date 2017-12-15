@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: VDolinger
- * Date: 13.12.2017
- * Time: 16:01
- */
 
 namespace HW8\App\App\Model;
 
@@ -17,4 +11,15 @@ class Categories extends Model
     {
         return $this->hasMany('HW8\App\App\Model\Goods');
     }
+
+    public function getParentAttribute()
+    {
+        $parent = Categories::find($this->subcategory_id);
+        if (!$parent) {
+            return '';
+        }
+        return $parent->name;
+    }
+
+    protected $appends = ['parent'];
 }

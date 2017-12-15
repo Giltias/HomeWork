@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Site{% endblock %}
+
+
+{% block content %}
+    {% include 'siteNavbar.html.twig' %}
+    <div class="row h-100">
+        <div class="col-2">
+            <div class="bg-primary h-100 d-flex flex-column align-items-center text-white">
+                <h2>Menu</h2>
+                <div id="menu"></div>
+                <ul style="font-size: 16pt; list-style: none;">
+                    <li>All</li>
+                    <ul style="font-size: 16pt; list-style: none;">
+                        <li>Books</li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container mt-3" id="container">
+                <div class="row" id="content"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="../../../web/js/site.js"></script>
+{% endblock %}

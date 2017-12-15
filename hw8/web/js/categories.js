@@ -18,31 +18,31 @@ const createTable = (data) => {
         <thead class="bg-primary text-white text-center">
           <tr>
             <th>Id</th>
-            <th>Category</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th>Parent</th>
+            <th>Discount</th>
+            <th>Active</th>
+            <th width="200px">Actions</th>
           </tr>
         </thead>
         <tbody>
             ${data.map(item =>
             `<tr>
                 <td class="text-center">${item.id}</td>
-                <td class="text-center">${item.category.name}</td>
-                <td>${item.name}</td>
-                <td>${item.description}</td>
-                <td class="text-center">${item.price}$</td>
+                <td class="text-center">${item.name}</td>
+                <td>${item.parent}</td>
+                <td>${item.discount}</td>
+                <td class="text-center">${item.active}</td>
                 <td class="text-center"> 
                     <button class="btn btn-primary btn-sm item-edit" data-id="${item.id}">
-                        <i class="fa fa-eye"></i>
+                        Edit</i>
                     </button>
                     <button class="btn btn-danger btn-sm item-delete" data-id="${item.id}">
-                        <i class="fa fa-trash"></i>
+                        Change Active</i>
                     </button>
                 </td>
              </tr>`
-    ).join('')}
+            ).join('')}
         </tbody>
       </table>`;
 };
@@ -54,6 +54,15 @@ const createTable = (data) => {
  */
 const drawContent = (data) => {
     let content = $('#content');
+    $.ajax({
+        url: '/category',
+        type: 'get',
+        dataType: 'json'
+    }).done(function (data) {
+        let options = data.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
+        $('#add-parent-category').html(options);
+        $('#parent-category').html(options);
+    });
     if (data.length > 0) {
         dataArray = data;
         content.html(createTable(dataArray));
@@ -69,7 +78,9 @@ const reqAjax = (pattern, type, item = null) => {
         type: type,
         dataType: 'json'
     }).done(function (data) {
+        console.log(data);
         drawContent(data);
+        $('#container').show();
     });
 };
 
@@ -77,7 +88,7 @@ const reqAjax = (pattern, type, item = null) => {
  * Обновление блока content
  */
 const refreshContent = () => {
-    reqAjax('/goods', 'get');
+    reqAjax('/category', 'get');
 };
 
 /**
@@ -92,54 +103,42 @@ const deleteItem = (item) => {
  * Загрузка таблицы в первый раз
  */
 $(function () {
-    $('#link-goods').addClass('active');
+    $('#link-categories').addClass('active');
     refreshContent();
-    $.ajax({
-        url: '/category/lists',
-        type: 'get',
-        dataType: 'json'
-    }).done(function (data) {
-        let catOptions = data.map(item => `<option value="${item.id}">${item.name}</option>`);
-        $('#add-goods-category').html(catOptions);
-        $('#goods-category').html(catOptions);
-        $('#container').show();
-    });
 });
 
 $(document)
     .on('click', '.item-delete', function () {
-        if (confirm('Вы действительно хотите удалить товар из списка?')) {
-            deleteItem($(this).data('id'));
-        }
+        $.ajax({
+            url: '/category/active/change',
+            type: 'post',
+            dataType: 'json',
+            data: {id: $(this).data('id')}
+        }).done(function (data) {
+            console.log(data);
+            drawContent(data);
+        })
     })
     .on('click', '.item-edit', function () {
         let item = $(this).data('id');
         $.ajax({
-            url: '/goods/' + item,
+            url: '/category/' + item,
             type: 'get',
             dataType: 'json'
         }).done(function (data) {
             console.log(data);
-            $('#goods-id').val(data.id);
-            $('#editGoodsLabelGoods').html(data.name);
-            $('#goods-price').val(data.price);
-            $('#goods-category').val(data.category_id);
-            $('#goods-description').val(data.description);
-            $('#goods-discount').val(data.discount);
-            let $el = $('#goods-photo');
-            $el.wrap('<form>').closest('form').get(0).reset();
-            $el.unwrap();
-            $('#goods-image').prop('src', '/web/uploads/goods/' + ((data.photo.length) ? data.photo : 'camera.gif') + '?' + (new Date()).getTime());
-            $('#editGoods').modal();
+            $('#category').val(data.id);
+            $('#parent-category').val(data.subcategory_id);
+            $('#category-discount').val(data.discount);
+            $('#editCategory').modal();
         });
 
     })
-    .on('click', '#goodsEditSave', function () {
-        let editForm = new FormData(document.forms.editGoods),
-            item = $(this).data('id');
-        console.log(editForm.get('goods-price'));
+    .on('click', '#categoryEditSave', function () {
+        let editForm = new FormData(document.forms.editCategory);
+        console.log(editForm.get('parent'))
         $.ajax({
-            url: '/goods',
+            url: '/category',
             type: 'post',
             data: editForm,
             dataType: 'json',
@@ -148,21 +147,22 @@ $(document)
         }).done(function (data) {
             console.log(data);
             drawContent(data);
-            $('#editGoods').modal('hide');
+            $('#editCategory').modal('hide');
         });
     })
-    .on('click', '.add-goods', function () {
-        $('#newGoods').modal();
+    .on('click', '.add-category', function () {
+        $('#addCategory').modal();
     })
-    .on('click', '#goodsAddSave', function () {
+    .on('click', '#categoryAddSave', function () {
         let valid = true;
-        let newForm = new FormData(document.forms.newGoods);
-        valid = valid && ($('#add-goods-name').val().length > 0);
-        valid = valid && ($('#add-goods-price').val().length > 0);
-        valid = valid && ($('#add-goods-discount').val().length > 0);
+        let newForm = new FormData(document.forms.addCategory);
+        valid = valid && ($('#add-parent-category').val().length > 0);
+        valid = valid && ($('#add-category-name').val().length > 0);
+        valid = valid && ($('#add-category-discount').val().length > 0);
+        console.log(valid);
         if (valid) {
             $.ajax({
-                url: '/goods',
+                url: '/category',
                 type: 'post',
                 data: newForm,
                 dataType: 'json',
@@ -170,7 +170,7 @@ $(document)
                 processData: false
             }).done(function (data) {
                 drawContent(data);
-                $('#newGoods').modal('hide');
+                $('#addCategory').modal('hide');
             })
         }
     });

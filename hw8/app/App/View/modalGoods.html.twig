@@ -8,9 +8,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="editGoods">
+                    <form name="editGoods" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="edit">
                         <input type="hidden" name="goods-id" id="goods-id" value="">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="goods-category" class="col-form-label">Category:</label>
+                                    <select class="form-control" name="goods-category" id="goods-category"></select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
@@ -27,7 +35,17 @@
                         </div>
                         <div class="form-group">
                             <label for="goods-photo" class="col-form-label">Photo:</label>
-                            <input type="text" class="form-control" name="goods-photo" id="goods-photo">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="" alt="Фото товара" width="100" id="goods-image">
+                                </div>
+                                <div class="col">
+                                    <label class="btn btn-outline-secondary col-12">
+                                        Loading image<input type="file" class="form-control" name="goods-photo" id="goods-photo" hidden>
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="form-group">
                             <label for="goods-description" class="col-form-label">Description:</label>

@@ -1,6 +1,7 @@
 <?php
 namespace HW8\App\App\Controller;
 
+use HW8\App\App\Model\Categories;
 use HW8\App\App\Model\Goods;
 use HW8\App\Engine\MainController;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -11,13 +12,26 @@ use Intervention\Image\ImageManagerStatic as Image;
  */
 class HomeController extends MainController
 {
+    public function site()
+    {
+        $this->view->render('site.html.twig');
+    }
+
+    public function admin()
+    {
+        header('Location: /admin/goods');
+    }
+
     /**
      *
      */
     public function index()
     {
-        $goods = Goods::all();
-        $data = ['goods' => $goods];
-        $this->view->render('index.html.twig', $data);
+        $this->view->render('index.html.twig');
+    }
+
+    public function categories()
+    {
+        $this->view->render('categories.html.twig');
     }
 }

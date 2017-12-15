@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Users{% endblock %}
+
+
+{% block content %}
+    {% include 'adminNavbar.html.twig' %}
+
+    <div class="container mt-3" id="container" style="display: none;">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-success float-right add-category">+ Add Category</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="content"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'modalCategoryAdd.html.twig' %}
+    {% include 'modalCategory.html.twig' %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="../../../web/js/categories.js"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+<div class="modal fade" id="editCategory"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryLabel">Edit category: <span id="addCategoryLabelName"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="editCategory">
+                    <input type="hidden" name="_method" value="edit">
+                    <input type="hidden" name="category" id="category" value="">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="parent-category" class="col-form-label">Parent:</label>
+                                <select class="form-control" name="parent-category" id="parent-category"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="category-discount" class="col-form-label">Discount:</label>
+                                <input type="text" class="form-control" name="category-discount" id="category-discount"
+                                       value="0" required>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="categoryEditSave">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
