@@ -21,5 +21,27 @@ class Categories extends Model
         return $parent->name;
     }
 
-    protected $appends = ['parent'];
+    public function getListAttribute()
+    {
+        return Categories::where('subcategory_id', $this->id)->get();
+    }
+
+    public function getLists($original)
+    {
+        $arr = [];
+        $arr[] = $original->id;
+        foreach ($original->list as $list) {
+           $arr = array_merge($arr, $list->getLists($list));
+        }
+        return $arr;
+    }
+
+
+
+    public function getListsAttribute()
+    {
+        return $this->getLists($this);
+    }
+
+    protected $appends = ['parent', 'lists', 'list'];
 }

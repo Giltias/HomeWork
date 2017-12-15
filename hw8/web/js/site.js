@@ -3,7 +3,7 @@ const buildMenu = (data) => {
     data.map((item, key) => {
         tmp = `
             <ul>
-                <li>${item.name}</li>   
+                <li data-id="${item.id}">${item.name}</li>   
                 <ul id="ul${item.id}">
                 </ul>
             </ul>`;
@@ -17,4 +17,7 @@ $.ajax({
     dataType: 'json'
 }).done(function (data) {
     buildMenu(data);
+    $.ajax({
+        url: 'category/1'
+    })
 });
