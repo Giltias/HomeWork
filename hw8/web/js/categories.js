@@ -103,7 +103,7 @@ const deleteItem = (item) => {
  * Загрузка таблицы в первый раз
  */
 $(function () {
-    $('#link-categories').addClass('active');
+
     refreshContent();
 });
 

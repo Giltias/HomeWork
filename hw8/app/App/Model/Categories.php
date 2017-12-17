@@ -36,8 +36,6 @@ class Categories extends Model
         return $arr;
     }
 
-
-
     public function getListsAttribute()
     {
         return $this->getLists($this);

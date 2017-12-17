@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block headjava %}
+    <script src="https://vk.com/js/api/openapi.js?151" type="text/javascript"></script>
+    <script type="text/javascript">
+        VK.init({
+            apiId: 6300961
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}Users{% endblock %}
+
+
+{% block content %}
+    {% include 'adminNavbar.html.twig' %}
+
+    <div class="container mt-3" id="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                <div class="card-header"><h4>Опубликовать запись на стене</h4></div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-form-label" for="postText">Текст записи:</label>
+                            <textarea class="form-control" name="postText" id="postText" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="btn btn-outline-secondary col-12">
+                                Загрузить изображение<input type="file" class="form-control" name="postPhoto" id="postPhoto" hidden>
+                            </label>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col text-left">
+                            {% if auth %}
+                                <a class="btn btn-danger" href="/admin/vk/auth">Токен (PHP)</a>
+                            {% else %}
+                                <a class="btn btn-success" href="#" id="last-record-php">Посл. запись (AJAX + PHP)</a>
+                                <a class="btn btn-primary" href="/admin/vk/postWall">Опубликовать (PHP)</a>
+                            {% endif %}
+                        </div>
+                        <div class="col text-right">
+                            <button class="btn btn-success" id="wall-get">Посл. запись (Open API)</button>
+                            <button class="btn btn-primary" id="wall-post">Опубликовать (Open API)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div id="last-record" class=""></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://vk.com/js/api/openapi.js?151" type="text/javascript"></script>
+    <script src="/web/js/vk.js"></script>
+{% endblock %}

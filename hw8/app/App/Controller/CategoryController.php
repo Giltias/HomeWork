@@ -4,10 +4,18 @@ namespace HW8\App\App\Controller;
 
 
 use HW8\App\App\Model\Categories;
+use HW8\App\App\Model\Goods;
 use HW8\App\Engine\MainController;
 
+/**
+ * Class CategoryController
+ * @package HW8\App\App\Controller
+ */
 class CategoryController extends MainController
 {
+    /**
+     * @return bool
+     */
     public function index()
     {
         $categories = Categories::all();
@@ -16,6 +24,10 @@ class CategoryController extends MainController
         return true;
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function select($id)
     {
         $category = Categories::find($id);
@@ -23,6 +35,21 @@ class CategoryController extends MainController
         return true;
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function goods($id)
+    {
+        $category = Categories::find($id);
+        $goods = Goods::whereIn('category_id', $category->lists)->get();
+        echo $goods->toJson();
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
     public function lists()
     {
         $categories = $this->capsule::table('categories')
@@ -34,12 +61,18 @@ class CategoryController extends MainController
         return true;
     }
 
+    /**
+     *
+     */
     public function list()
     {
         $categories = Categories::where('active', 1)->get();
         echo $categories->toJson();
     }
 
+    /**
+     *
+     */
     public function post()
     {
         switch ($_REQUEST['_method']) {
@@ -52,6 +85,9 @@ class CategoryController extends MainController
         }
     }
 
+    /**
+     *
+     */
     public function create()
     {
         $cat = new Categories();
@@ -62,6 +98,9 @@ class CategoryController extends MainController
         $this->index();
     }
 
+    /**
+     * @param $id
+     */
     public function edit($id)
     {
         $cat = Categories::find($id);
@@ -71,6 +110,9 @@ class CategoryController extends MainController
         $this->index();
     }
 
+    /**
+     *
+     */
     public function activeChange()
     {
         $id = $_REQUEST['id'];

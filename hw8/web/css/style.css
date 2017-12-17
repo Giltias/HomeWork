@@ -25,3 +25,11 @@ li {
     text-transform: capitalize;
     cursor: pointer;
 }
+
+.text-desc {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}

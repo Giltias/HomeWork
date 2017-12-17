@@ -6,8 +6,15 @@ use HW8\App\App\Model\Goods;
 use HW8\App\Engine\MainController;
 use Intervention\Image\ImageManagerStatic as Image;
 
+/**
+ * Class GoodsController
+ * @package HW8\App\App\Controller
+ */
 class GoodsController extends MainController
 {
+    /**
+     * @return bool
+     */
     public function index()
     {
         $goods = Goods::with('category')->get();
@@ -19,6 +26,10 @@ class GoodsController extends MainController
         return true;
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function select($id)
     {
         $goods = Goods::with('category')->find($id);
@@ -30,6 +41,9 @@ class GoodsController extends MainController
         return true;
     }
 
+    /**
+     *
+     */
     public function post()
     {
         switch ($_REQUEST['_method']) {
@@ -42,6 +56,10 @@ class GoodsController extends MainController
         }
     }
 
+    /**
+     * @param $index
+     * @return bool
+     */
     private function checkPhoto($index)
     {
         $photo = $_FILES[$index];
@@ -60,6 +78,10 @@ class GoodsController extends MainController
         return false;
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function edit($id)
     {
         $goods = Goods::find($id);
@@ -79,6 +101,9 @@ class GoodsController extends MainController
         return true;
     }
 
+    /**
+     *
+     */
     public function create()
     {
         $goods = new Goods();
@@ -100,6 +125,10 @@ class GoodsController extends MainController
         $this->index();
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public function delete($id)
     {
         $good = Goods::destroy($id);
