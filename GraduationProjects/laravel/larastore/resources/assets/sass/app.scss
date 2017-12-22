@@ -1,0 +1,35 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+@import "sidebar";
+@import "error";
+
+.goods-item {
+  cursor: pointer;
+  border: 1px solid white;
+  transition: all 0.3s;
+}
+
+.goods-item:hover,
+.goods-item:active {
+  border: 1px solid #d7d5ff;
+  box-shadow: 0 0 5px rgba(0,0,0, 0.2);
+}
+
+.goods-order {
+  cursor: pointer;
+}
+
+.text-desc {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
